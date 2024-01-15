@@ -41,6 +41,6 @@ export class User {
   @ApiProperty()
   country: string;
 
-  @Column({ type: 'boolean', default: false })
+  @Column({ type: 'boolean', default: false, name: 'is_super_user' })
   isSuperUser: boolean;
 }
