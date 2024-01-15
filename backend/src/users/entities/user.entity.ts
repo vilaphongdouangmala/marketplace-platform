@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ChatUser, Message } from 'src/chat/entities/chat.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -43,4 +44,12 @@ export class User {
 
   @Column({ type: 'boolean', default: false, name: 'is_super_user' })
   isSuperUser: boolean;
+
+  @OneToMany(() => ChatUser, (chatUser) => chatUser.user)
+  @ApiProperty()
+  chatUsers: ChatUser[];
+
+  @OneToMany(() => Message, (message) => message.user)
+  @ApiProperty()
+  messages: Message[];
 }
