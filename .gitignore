@@ -8,6 +8,8 @@
 # Ignore dependency directories
 /node_modules/
 /vendor/
+*.editorconfig
+.env
 
 # Ignore log files
 *.log
