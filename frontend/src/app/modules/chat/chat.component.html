@@ -1,9 +1,46 @@
-<div class="flex">
-    <div class="">
-        <div class="bg-slate-200 rounded-md px-6 py-3">
-            <div>title</div>
-            <div>preview message</div>
+<div class="min-h-screen bg-slate-900 text-white">
+  <div class="flex">
+    <div class="min-h-screen py-5 bg-slate-800 w-2/12">
+      <div *ngFor="let chat of chats" class="
+          flex 
+          items-center 
+          justify-start 
+          px-6 py-4 
+          border-gray-200 
+          hover:bg-slate-600 
+          hover:cursor-pointer 
+          hover:rounded-md">
+        <div class="pr-5">
+          <img class="rounded-full" width="60px"
+            src="https://i.pinimg.com/736x/0c/1f/e8/0c1fe8c71f68d611ffa84f88e10f348b.jpg" alt="">
         </div>
+        <div>
+          <div class="text-base font-bold">
+            {{ chat.isGroup ? chat.chatName : (chat.chatUsers[0].firstName + " " + chat.chatUsers[0].lastName )}}</div>
+          <div class="flex items-center justify-start">
+            <div class="text-sm pr-2">{{ chat.latestMessage }}</div>
+            <div class="text-sm">10m</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>chatbox</div>
+    <div class="w-10/12 flex-col">
+      <!-- Chat Details Header -->
+      <div class="flex items-center px-16 py-4 min-w-screen border-b-2 border-indigo-900">
+        <div class="pr-5">
+          <img class="rounded-full" width="40px"
+            src="https://i.pinimg.com/736x/0c/1f/e8/0c1fe8c71f68d611ffa84f88e10f348b.jpg" alt="">
+        </div>
+        <div class="text-lg font-bold">Title</div>
+      </div>
+      <!-- Chat Details -->
+      <div class="px-72 py-4">
+        <!-- Message box -->
+        <div class="flex items-end">
+          <div class="px-4 py-2 mr-2 text-base bg-slate-800 rounded-lg w-min">messages</div>
+          <div class="text-sm">9:30am</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,10 +1,67 @@
 import { Component } from '@angular/core';
+import { Chat, ChatUser } from '../../../models/chat.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
-  imports: [],
+  imports: [CommonModule],
   standalone: true,
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
-export class ChatComponent {}
+export class ChatComponent {
+  chats: Chat[] = [
+    {
+      id: 1,
+      chatName: null,
+      isGroup: false,
+      latestMessage: 'Hello there!',
+      latestMessageTime: new Date(),
+      chatUsers: [
+        {
+          id: 1,
+          firstName: 'User1',
+          lastName: 'User1',
+          email: 'user@gmail.com',
+        },
+      ],
+    },
+    {
+      id: 2,
+      chatName: 'Chat 2',
+      isGroup: true,
+      latestMessage: 'Group message!',
+      latestMessageTime: new Date(),
+      chatUsers: [
+        {
+          id: 2,
+          firstName: 'User2',
+          lastName: 'User2',
+          email: 'user@gmail.com',
+        },
+        {
+          id: 3,
+          firstName: 'User3',
+          lastName: 'User3',
+          email: 'user@gmail.com',
+        },
+      ],
+    },
+    {
+      id: 3,
+      chatName: null,
+      isGroup: false,
+      latestMessage: 'How are you?',
+      latestMessageTime: new Date(),
+      chatUsers: [
+        {
+          id: 4,
+          firstName: 'User4',
+          lastName: 'User4',
+          email: 'user@gmail.com',
+        },
+      ],
+    },
+    // ... Repeat this pattern for the remaining entries
+  ];
+}
