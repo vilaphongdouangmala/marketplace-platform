@@ -1,5 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { config } from 'dotenv';
 
+config();
 class DatabaseConfigs {
   public getTypeOrmConfigs(): TypeOrmModuleOptions {
     return {
