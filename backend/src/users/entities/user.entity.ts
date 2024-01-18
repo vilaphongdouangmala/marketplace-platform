@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ChatUser, Message } from 'src/chat/entities/chat.entity';
+import { ChatUser, Message } from '../../chat/entities/chat.entity';
+import { AbstractEntity } from '../../common/entities/abstract.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class User {
+export class User extends AbstractEntity<User> {
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;

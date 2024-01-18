@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'src/users/entities/user.entity';
+import { AbstractEntity } from '../../common/entities/abstract.entity';
+import { User } from '../../users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -10,7 +11,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Chat {
+export class Chat extends AbstractEntity<Chat> {
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
@@ -33,7 +34,7 @@ export class Chat {
 }
 
 @Entity()
-export class ChatUser {
+export class ChatUser extends AbstractEntity<ChatUser> {
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
@@ -58,7 +59,7 @@ export class ChatUser {
 }
 
 @Entity()
-export class Message {
+export class Message extends AbstractEntity<Message> {
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
