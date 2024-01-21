@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Chat, ChatUser } from '../../../models/chat.model';
 import { CommonModule } from '@angular/common';
+import { ChatService } from '../../../services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -9,7 +10,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit {
+  chatService = inject(ChatService);
+
   chats: Chat[] = [
     {
       id: 1,
@@ -64,4 +67,12 @@ export class ChatComponent {
     },
     // ... Repeat this pattern for the remaining entries
   ];
+
+  ngOnInit(): void {
+    this.chatService.selectedChat.next(this.chats[0]);
+  }
+
+  selectChat(selectedChat: Chat): void {
+    this.chatService.selectedChat.next(selectedChat);
+  }
 }
