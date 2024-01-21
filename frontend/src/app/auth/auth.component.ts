@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
+
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -23,4 +24,10 @@ export class AuthComponent {
       Validators.minLength(8),
     ]),
   });
+
+  isPasswordVisible: boolean = false;
+
+  onLogin() {
+    console.log('onLogin');
+  }
 }

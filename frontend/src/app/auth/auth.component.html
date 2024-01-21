@@ -1,29 +1,27 @@
-<div class="min-w-screen min-h-screen bg-slate-900 text-white">
-    <div class="min-w-screen min-h-screen flex items-center justify-center">
-        <div class="flex-col items-center justify-center">
-            <div class="text-3xl font-bold mb-5 text-center">Login</div>
-            <form [formGroup]="loginFormGroup">
-                <div class="bg-slate-700 rounded-md p-5">
-                    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-4">
-                            <label for="username" class="block text-sm font-medium leading-6">Username</label>
-                            <div class="mt-2">
-                                <div
-                                    class="flex rounded-md shadow-sm ring-1 ring-inset ring-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-slate-900 sm:max-w-md">
-                                    <input type="text" formControlName="username"
-                                        class="block flex-1 border-0 bg-transparent py-1.5 pl-1 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        placeholder="janesmith">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <input type="text" formControlName="password">
-                        </div>
-                    </div>
-                    <!-- <button type="submit" class="mt-5 bg-slate-700 rounded-md px-5 py-2">Login</button> -->
-                    <button type="submit" mat-flat-button color="primary">Login</button>
-                </div>
-            </form>
+<div class="min-w-screen min-h-screen primary-bg-1 text-white">
+  <div class="min-w-screen min-h-screen flex items-center justify-center">
+    <div class="flex flex-col items-center justify-center">
+      <div class="text-3xl font-bold mb-5 text-center">Login</div>
+      <form [formGroup]="loginFormGroup" (ngSubmit)="onLogin()">
+        <div class="flex flex-col justify-center items-center gap-4 secondary-bg rounded-md py-12 px-24">
+          <div class="w-full">
+            <input nzSize="large" nz-input class="default-input primary-input py-2" placeholder="Username"
+              formControlName="username" />
+          </div>
+          <div class="w-full">
+            <nz-input-group  class="default-input primary-input py-2" [nzSuffix]="suffixTemplate">
+              <input [type]="isPasswordVisible ? 'text' : 'password'" nz-input placeholder="input password"
+                nzSize="large" nz-input placeholder="Password"
+                formControlName="password" />
+            </nz-input-group>
+            <ng-template #suffixTemplate>
+              <span nz-icon [nzType]="isPasswordVisible ? 'eye-invisible' : 'eye'"
+                (click)="isPasswordVisible = !isPasswordVisible"></span>
+            </ng-template>
+          </div>
+          <button nz-button nzSize="large" class="default-button primary-button w-full mt-2">Login</button>
         </div>
+      </form>
     </div>
+  </div>
 </div>
