@@ -1,15 +1,16 @@
-<div class="min-h-screen bg-slate-900 text-white">
+<div class="min-h-screen primary-bg-1 text-white">
   <div class="flex">
-    <div class="min-h-screen py-5 bg-slate-800 w-2/12">
+    <div class="min-h-screen py-5 primary-bg-2 w-2/12">
       <div *ngFor="let chat of chats" class="
           flex 
           items-center 
           justify-start 
           px-6 py-4 
           border-gray-200 
-          hover:bg-slate-600 
+          hover:bg-slate-600
           hover:cursor-pointer 
-          hover:rounded-md">
+          hover:rounded-md" [ngClass]="chatService.selectedChat.value?.id == chat.id ? 'bg-slate-600 rounded-md' : ''"
+        (click)="selectChat(chat)">
         <div class="pr-5">
           <img class="rounded-full" width="60px"
             src="https://i.pinimg.com/736x/0c/1f/e8/0c1fe8c71f68d611ffa84f88e10f348b.jpg" alt="">
@@ -31,13 +32,15 @@
           <img class="rounded-full" width="40px"
             src="https://i.pinimg.com/736x/0c/1f/e8/0c1fe8c71f68d611ffa84f88e10f348b.jpg" alt="">
         </div>
-        <div class="text-lg font-bold">Title</div>
+        <div class="text-lg font-bold">
+          {{ chatService.selectedChat.value && (chatService.selectedChat.value.chatName ?? (chatService.selectedChat.value.chatUsers[0].firstName + ' ' + chatService.selectedChat.value.chatUsers[0].lastName)) }}
+        </div>
       </div>
       <!-- Chat Details -->
       <div class="px-72 py-4">
         <!-- Message box -->
         <div class="flex items-end">
-          <div class="px-4 py-2 mr-2 text-base bg-slate-800 rounded-lg w-min">messages</div>
+          <div class="px-4 py-2 mr-2 text-base primary-bg-2 rounded-lg w-min">messages</div>
           <div class="text-sm">9:30am</div>
         </div>
       </div>

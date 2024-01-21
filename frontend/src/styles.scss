@@ -1,37 +1,11 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// // Define the palettes for your theme using the Material Design palettes available in palette.scss
-// // (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// // hue. Available color palettes: https://material.io/design/color/
-// $frontend-primary: rgb(17 24 39);
-// $frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// // The warn palette is optional (defaults to red).
-// $frontend-warn: mat.define-palette(mat.$red-palette);
-
-// // Create the theme object. A theme consists of configurations for individual
-// // theming systems such as "color" or "typography".
-// $frontend-theme: mat.define-light-theme((color: (primary: $frontend-primary,
-//         accent: $frontend-accent,
-//         warn: $frontend-warn,
-//       )));
-
-// // Include theme styles for core and each component used in your app.
-// // Alternatively, you can import and @include the theme mixins for each component
-// // that you are using.
-// @include mat.all-component-themes($frontend-theme);
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+$primary-color-1: rgb(17 24 39);
+$primary-color-2: rgb(31 41 55);
+$secondary-color: rgb(55 65 81);
+$accent-color: #fafafa;
 
 html,
 body {
@@ -41,4 +15,43 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.primary-bg-1 {
+  background-color: $primary-color-1;
+}
+
+.primary-bg-2 {
+  background-color: $primary-color-2;
+}
+
+.secondary-bg {
+  background-color: $secondary-color;
+}
+
+.default-button {
+  @apply rounded-md;
+}
+
+.primary-button {
+  border-color: $primary-color-1;
+  background-color: $primary-color-1;
+  color: $accent-color;
+
+  &:hover, &:focus {
+    background-color: $accent-color;
+    border-color: $accent-color;
+    color: $primary-color-1;
+  }
+}
+
+.default-input {
+  @apply rounded-md;
+}
+
+.primary-input {
+  &:hover, &:focus {
+    border-color: $primary-color-1;
+    box-shadow: $primary-color-1;
+  }
 }
