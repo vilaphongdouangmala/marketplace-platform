@@ -12,20 +12,25 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async getUser(
-    username: string,
-    password: string,
-  ): Promise<Record<string, any>> {
-    const user = await this.usersRepository.findOne({
-      where: { username },
-    });
-
-    if (user?.password !== password) {
-      throw new UnauthorizedException();
+  async validateUser(username: string, pass: string): Promise<any> {
+    const user = await this.getUserByUsername(username);
+    if (user && user.password === pass) {
+      const { password, ...result } = user;
+      return result;
     }
+    return null;
+  }
+
+  async login(user: User) {
     const payload = { sub: user.id, username: user.username };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async getUserByUsername(username: string): Promise<User | null> {
+    return await this.usersRepository.findOne({
+      where: { username },
+    });
   }
 }
