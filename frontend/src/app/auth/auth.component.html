@@ -1,26 +1,19 @@
 <div class="min-w-screen min-h-screen primary-bg-1 text-white">
   <div class="min-w-screen min-h-screen flex items-center justify-center">
-    <div class="flex flex-col items-center justify-center">
-      <div class="text-3xl font-bold mb-5 text-center">Login</div>
-      <form [formGroup]="loginFormGroup" (ngSubmit)="onLogin()">
-        <div class="flex flex-col justify-center items-center gap-4 secondary-bg rounded-md py-12 px-24">
-          <div class="w-full">
-            <input nzSize="large" nz-input class="default-input primary-input py-2" placeholder="Username"
-              formControlName="username" />
+    <div class="w-3/12 flex flex-col items-center justify-center secondary-bg rounded-md py-10 px-6">
+      <form class="w-full flex flex-col justify-center items-center" [formGroup]="loginFormGroup"
+        (ngSubmit)="onLogin()">
+        <div class="text-3xl font-bold mb-12 text-center">Login</div>
+        <label class="form-control w-full max-w-xs gap-2">
+          <input class="input input-bordered w-full max-w-xs" placeholder="Username" formControlName="username" />
+          <div class="w-full flex justify-end items-center relative">
+            <input [type]="isPasswordVisible ? 'text': 'password'" class="input input-bordered w-full max-w-xs" placeholder="Password" formControlName="password" />
+            <span class="absolute mr-2 w-10" nz-icon [nzType]="isPasswordVisible ? 'eye-invisible' : 'eye'"
+              (click)="isPasswordVisible = !isPasswordVisible" style="z-index: 999;"></span>
           </div>
-          <div class="w-full">
-            <nz-input-group  class="default-input primary-input py-2" [nzSuffix]="suffixTemplate">
-              <input [type]="isPasswordVisible ? 'text' : 'password'" nz-input placeholder="input password"
-                nzSize="large" nz-input placeholder="Password"
-                formControlName="password" />
-            </nz-input-group>
-            <ng-template #suffixTemplate>
-              <span nz-icon [nzType]="isPasswordVisible ? 'eye-invisible' : 'eye'"
-                (click)="isPasswordVisible = !isPasswordVisible"></span>
-            </ng-template>
-          </div>
-          <button nz-button nzSize="large" class="default-button primary-button w-full mt-2">Login</button>
-        </div>
+        </label>
+        <!-- <button nz-button nzSize="large" class="default-button primary-button w-full max-w-xs mt-8">Login</button> -->
+        <button class="btn w-full btn-md max-w-xs mt-8">Login</button>
       </form>
     </div>
   </div>
