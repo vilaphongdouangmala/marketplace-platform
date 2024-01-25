@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-$primary-color-1: rgb(17 24 39);
-$primary-color-2: rgb(31 41 55);
-$secondary-color: rgb(55 65 81);
+$primary-color-1: #111827;
+$primary-color-2: #1f2937;
+$secondary-color: #374151;
 $accent-color: #fafafa;
 
 html,
@@ -39,9 +39,10 @@ body {
   color: $accent-color;
 
   &:hover, &:focus {
-    background-color: $accent-color;
-    border-color: $accent-color;
-    color: $primary-color-1;
+    background-color: $primary-color-2;
+    border-color: $primary-color-2;
+    color: $accent-color;
+    transition: 0.25s;
   }
 }
 
