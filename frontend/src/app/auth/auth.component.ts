@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from '../../services/auth.service';
+import { BrowserStorageService } from '../../services/brower-storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -18,6 +19,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AuthComponent {
   authService = inject(AuthService);
+  browserStorageService = inject(BrowserStorageService);
 
   loginFormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -35,7 +37,7 @@ export class AuthComponent {
       return;
     }
     this.authService.login(username, password).subscribe((res) => {
-      console.log(res);
+      this.browserStorageService.set('accessToken', res.access_token);
     });
   }
 }
