@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -17,17 +17,25 @@ import { SharedModule } from '../shared/shared.module';
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent {
+  authService = inject(AuthService);
+
   loginFormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(8),
+      // Validators.minLength(8),
     ]),
   });
 
   isPasswordVisible: boolean = false;
 
   onLogin() {
-    console.log('onLogin');
+    const { username, password } = this.loginFormGroup.value;
+    if (this.loginFormGroup.invalid || !username || !password) {
+      return;
+    }
+    this.authService.login(username, password).subscribe((res) => {
+      console.log(res);
+    });
   }
 }
