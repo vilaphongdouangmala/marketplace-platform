@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Chat, ChatUser } from '../../../models/chat.model';
+import { Chat, DateGroupedMessage } from '../../../models/chat.model';
 import { CommonModule } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
+import { BrowserStorageService } from '../../../services/brower-storage.service';
 
 @Component({
   selector: 'app-chat',
@@ -12,6 +13,9 @@ import { ChatService } from '../../../services/chat.service';
 })
 export class ChatComponent implements OnInit {
   chatService = inject(ChatService);
+  browserStorageService = inject(BrowserStorageService);
+  userId = this.browserStorageService.get('userId');
+  messages: DateGroupedMessage | undefined;
 
   chats: Chat[] = [
     {
@@ -74,5 +78,14 @@ export class ChatComponent implements OnInit {
 
   selectChat(selectedChat: Chat): void {
     this.chatService.selectedChat.next(selectedChat);
+    this.chatService.getChatMessages(1).subscribe({
+      next: (messages) => {
+        this.messages = messages;
+        console.log(this.messages);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 }

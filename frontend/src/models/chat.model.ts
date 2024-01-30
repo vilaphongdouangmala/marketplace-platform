@@ -21,8 +21,15 @@ export interface ChatUser {
   email: string;
 }
 
+export interface DateGroupedMessage {
+  date: Date;
+  messages: Message[];
+}
+
 export interface Message {
   id: number;
-  message: string;
-  created_at: Date;
+  content: string;
+  createdAt: Date;
+  userId: number;
+  chatId: number;
 }

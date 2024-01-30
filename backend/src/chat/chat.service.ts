@@ -21,12 +21,14 @@ export class ChatService {
     // group queried messages by date
     const groupedMessages = messageQuery.reduce((acc, message) => {
       const date = message.createdAt.toISOString().split('T')[0];
-      if (!acc[date]) {
-        acc[date] = [];
+      const existingGroup = acc.find((group) => group.date === date);
+      if (existingGroup) {
+        existingGroup.messages.push(message);
+      } else {
+        acc.push({ date, messages: [message] });
       }
-      acc[date].push(message);
       return acc;
-    }, {});
+    }, []);
 
     return groupedMessages;
   }

@@ -8,13 +8,18 @@ import {
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { BrowserStorageService } from './brower-storage.service';
 
 @Injectable()
 export class ApiService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private browserStorageService: BrowserStorageService
+  ) {}
 
   private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('accessToken') || '';
+    const token = this.browserStorageService.get('accessToken') || '';
     const header = new HttpHeaders();
     header.append('Accept', 'application/json');
     header.append('Content-Type', 'application/json');
@@ -52,6 +57,8 @@ export class ApiService {
   }
 
   get<T>(url: string, params?: HttpParams): Observable<T> {
+    const token = this.browserStorageService.get('accessToken') || '';
+    console.log(token);
     return this.http
       .get<T>(url, { headers: this.getHeaders(), params })
       .pipe(catchError((error) => this.handleError(error)));
