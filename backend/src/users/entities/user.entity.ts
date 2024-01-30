@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ChatUser, Message } from '../../chat/entities/chat.entity';
 import { AbstractEntity } from '../../common/entities/abstract.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { UserType } from '../enums/user.enum';
 
 @Entity()
 export class User extends AbstractEntity<User> {
@@ -43,8 +44,9 @@ export class User extends AbstractEntity<User> {
   @ApiProperty()
   country: string;
 
-  @Column({ type: 'boolean', default: false, name: 'is_super_user' })
-  isSuperUser: boolean;
+  @Column({ type: 'enum', enum: UserType, name: 'user_type', nullable: false, default: UserType.Buyer })
+  @ApiProperty()
+  userType: UserType;
 
   @OneToMany(() => ChatUser, (chatUser) => chatUser.user)
   @ApiProperty()
