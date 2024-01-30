@@ -1,4 +1,4 @@
-# messaging-platform
+# marketplace-platform
 
 
 ## Backend
