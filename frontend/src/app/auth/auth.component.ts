@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormControl,
@@ -9,6 +8,7 @@ import {
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from '../../services/auth.service';
 import { BrowserStorageService } from '../../services/brower-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -20,6 +20,7 @@ import { BrowserStorageService } from '../../services/brower-storage.service';
 export class AuthComponent {
   authService = inject(AuthService);
   browserStorageService = inject(BrowserStorageService);
+  router = inject(Router);
 
   loginFormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -36,8 +37,14 @@ export class AuthComponent {
     if (this.loginFormGroup.invalid || !username || !password) {
       return;
     }
-    this.authService.login(username, password).subscribe((res) => {
-      this.browserStorageService.set('accessToken', res.access_token);
+    this.authService.login(username, password).subscribe({
+      next: (res) => {
+        this.browserStorageService.setAuthUser(res);
+        this.router.navigate(['/chat']);
+      },
+      error: (error) => {
+        console.log(error);
+      },
     });
   }
 }
