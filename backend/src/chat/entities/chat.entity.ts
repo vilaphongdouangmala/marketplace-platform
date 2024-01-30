@@ -40,8 +40,8 @@ export class ChatUser extends AbstractEntity<ChatUser> {
   id: number;
 
   @ApiProperty()
-  @Column({ nullable: false })
-  chat_id: number;
+  @Column({ nullable: false, name: 'chat_id'})
+  chatId: number;
 
   @ManyToOne(() => Chat, (chat) => chat.chatUsers)
   @JoinColumn({ name: 'chat_id' })
@@ -49,8 +49,8 @@ export class ChatUser extends AbstractEntity<ChatUser> {
   chat: Chat;
 
   @ApiProperty()
-  @Column({ nullable: false })
-  user_id: number;
+  @Column({ nullable: false, name: 'user_id'})
+  userId: number;
 
   @ManyToOne(() => User, (user) => user.chatUsers)
   @JoinColumn({ name: 'user_id' })
@@ -71,8 +71,8 @@ export class Message extends AbstractEntity<Message> {
   isRead: boolean;
 
   @ApiProperty()
-  @Column({ nullable: false })
-  chat_id: number;
+  @Column({ nullable: false, name: 'chat_id'})
+  chatId: number;
 
   @ManyToOne(() => Chat, (chat) => chat.messages)
   @JoinColumn({ name: 'chat_id' })
@@ -80,8 +80,8 @@ export class Message extends AbstractEntity<Message> {
   chat: Chat;
 
   @ApiProperty()
-  @Column({ nullable: false })
-  user_id: number;
+  @Column({ nullable: false, name: 'user_id'})
+  userId: number;
 
   @ManyToOne(() => User, (user) => user.messages)
   @JoinColumn({ name: 'user_id' })
