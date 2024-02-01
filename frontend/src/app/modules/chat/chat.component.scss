@@ -1,0 +1,7 @@
+@import '../../../styles.scss';
+
+.send-button {
+    &:hover {
+        background-color: $secondary-color;
+    }
+}

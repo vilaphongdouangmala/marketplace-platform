@@ -3,10 +3,11 @@ import { Chat, DateGroupedMessage } from '../../../models/chat.model';
 import { CommonModule } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
 import { BrowserStorageService } from '../../../services/brower-storage.service';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule],
   standalone: true,
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
@@ -14,17 +15,24 @@ import { BrowserStorageService } from '../../../services/brower-storage.service'
 export class ChatComponent implements OnInit {
   chatService = inject(ChatService);
   browserStorageService = inject(BrowserStorageService);
-  userId = this.browserStorageService.get('userId');
-  messages: DateGroupedMessage | undefined;
-
+  userId = Number(this.browserStorageService.get('userId'));
   chats: Chat[] = [];
+  messages: DateGroupedMessage[] = [];
 
   ngOnInit(): void {
-    this.chatService.selectedChat.next(this.chats[0]);
+    // get user selected chat messsage
     this.chatService.getUserChats().subscribe({
       next: (chats) => {
         this.chats = chats;
-        console.log(this.chats);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+    // subscribe selected chat messsage
+    this.chatService.selectedChatMessages.subscribe({
+      next: (messages) => {
+        this.messages = messages;
       },
       error: (err) => {
         console.error(err);
@@ -33,11 +41,12 @@ export class ChatComponent implements OnInit {
   }
 
   selectChat(selectedChat: Chat): void {
+    // select chat
     this.chatService.selectedChat.next(selectedChat);
-    this.chatService.getChatMessages(1).subscribe({
+    // get selected chat messsage
+    this.chatService.getChatMessages(selectedChat.id).subscribe({
       next: (messages) => {
-        this.messages = messages;
-        console.log(this.messages);
+        this.chatService.selectedChatMessages.next(messages);
       },
       error: (err) => {
         console.error(err);
@@ -47,9 +56,8 @@ export class ChatComponent implements OnInit {
 
   getPrivateMessageChatName(chat: Chat): string {
     const chatPartner = chat.chatUsers.find(
-      (chatUser) => chatUser.user.id !== Number(this.userId)
+      (chatUser) => chatUser.user.id !== this.userId
     )?.user;
-    console.log(chatPartner);
     return chatPartner
       ? `${chatPartner.firstName} ${chatPartner.lastName}`
       : '';

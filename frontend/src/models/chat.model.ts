@@ -22,14 +22,14 @@ export interface ChatUser {
 }
 
 export interface DateGroupedMessage {
-  date: Date;
+  date: string;
   messages: Message[];
 }
 
 export interface Message {
   id: number;
   content: string;
-  createdAt: Date;
+  createdAt: string;
   userId: number;
   chatId: number;
 }

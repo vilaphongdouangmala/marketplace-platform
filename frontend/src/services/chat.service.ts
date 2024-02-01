@@ -9,12 +9,13 @@ export class ChatService {
   constructor(private apiService: ApiService) {}
 
   selectedChat = new BehaviorSubject<Chat | null>(null);
+  selectedChatMessages = new BehaviorSubject<DateGroupedMessage[]>([]);
 
   getUserChats(): Observable<Chat[]> {
     return this.apiService.get(apiEndpoints.chat);
   }
 
-  getChatMessages(chatId: number): Observable<DateGroupedMessage> {
+  getChatMessages(chatId: number): Observable<DateGroupedMessage[]> {
     return this.apiService.get(apiEndpoints.chatMessages + chatId);
   }
 }
