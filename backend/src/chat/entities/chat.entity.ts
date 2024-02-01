@@ -24,6 +24,12 @@ export class Chat extends AbstractEntity<Chat> {
   @ApiProperty()
   isGroup: boolean;
 
+  @Column({ length: 512, type: 'varchar', nullable: true, name: 'latest_message' })
+  latestMessage: string;
+
+  @Column({ type: 'timestamptz', nullable: true, name: 'latest_message_at' })
+  latestMessageAt: Date;
+
   @OneToMany(() => ChatUser, (chatUser) => chatUser.chat)
   @ApiProperty()
   chatUsers: ChatUser[];

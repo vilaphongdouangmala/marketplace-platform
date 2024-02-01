@@ -5,7 +5,7 @@ export interface Chat {
   chatName?: string | null;
   isGroup: boolean;
   latestMessage: string;
-  latestMessageTime: Date;
+  latestMessageAt: string;
   chatUsers: ChatUser[];
 }
 

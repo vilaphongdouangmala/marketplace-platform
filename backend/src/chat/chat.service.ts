@@ -20,7 +20,13 @@ export class ChatService {
       })
       .leftJoinAndSelect('chat.chatUsers', 'chatUsers')
       .leftJoin('chatUsers.user', 'user')
-      .addSelect(['user.id', 'user.firstName', 'user.lastName', 'user.email', 'user.userType'])
+      .addSelect([
+        'user.id',
+        'user.firstName',
+        'user.lastName',
+        'user.email',
+        'user.userType',
+      ])
       .getMany();
 
     return userChats;
