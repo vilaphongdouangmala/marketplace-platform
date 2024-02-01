@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
 import { BrowserStorageService } from '../../../services/brower-storage.service';
 import { SharedModule } from '../../shared/shared.module';
+import { getTimeFromDateTimeString } from '../../shared/utils/datetime.utils';
 
 @Component({
   selector: 'app-chat',
@@ -61,5 +62,9 @@ export class ChatComponent implements OnInit {
     return chatPartner
       ? `${chatPartner.firstName} ${chatPartner.lastName}`
       : '';
+  }
+
+  formatTime(dateTime: string): string {
+    return getTimeFromDateTimeString(dateTime);
   }
 }

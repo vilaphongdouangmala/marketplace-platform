@@ -43,13 +43,13 @@
           <div class="flex flex-col justify-between w-full">
             <div class="mb-6">
               <div *ngFor="let dateMessage of messages">
-                <div class="flex items-end justify-center mt-10 mb-5">
-                  <div>{{ dateMessage.date }}</div>
+                <div class="flex items-end justify-center mt-12 mb-5">
+                  <div class="text-slate-500">{{ dateMessage.date }}</div>
                 </div>
                 <div *ngFor="let message of dateMessage.messages">
                   <div class="flex items-end mb-3" [ngClass]="message.userId == userId ? 'justify-end' : ''">
                     <div class="px-4 py-2 mr-2 text-base primary-bg-2 rounded-lg w-fit">{{ message.content }}</div>
-                    <div class="text-sm">9:30am</div>
+                    <div class="text-sm">{{ formatTime(message.createdAt) }}</div>
                   </div>
                 </div>
               </div>
