@@ -17,7 +17,7 @@
         </div>
         <div>
           <div class="text-base font-bold">
-            {{ chat.isGroup ? chat.chatName : (chat.chatUsers[0].firstName + " " + chat.chatUsers[0].lastName )}}</div>
+            {{ chat.isGroup ? chat.chatName : getPrivateMessageChatName(chat) }}</div>
           <div class="flex items-center justify-start">
             <div class="text-sm pr-2">{{ chat.latestMessage }}</div>
             <div class="text-sm">10m</div>
@@ -33,7 +33,7 @@
             src="https://i.pinimg.com/736x/0c/1f/e8/0c1fe8c71f68d611ffa84f88e10f348b.jpg" alt="">
         </div>
         <div class="text-lg font-bold">
-          {{ chatService.selectedChat.value && (chatService.selectedChat.value.chatName ?? (chatService.selectedChat.value.chatUsers[0].firstName + ' ' + chatService.selectedChat.value.chatUsers[0].lastName)) }}
+          {{ chatService.selectedChat.value && (chatService.selectedChat.value.chatName ?? getPrivateMessageChatName(chatService.selectedChat.value)) }}
         </div>
       </div>
       <!-- Chat Details -->

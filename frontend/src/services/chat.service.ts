@@ -10,6 +10,10 @@ export class ChatService {
 
   selectedChat = new BehaviorSubject<Chat | null>(null);
 
+  getUserChats(): Observable<Chat[]> {
+    return this.apiService.get(apiEndpoints.chat);
+  }
+
   getChatMessages(chatId: number): Observable<DateGroupedMessage> {
     return this.apiService.get(apiEndpoints.chatMessages + chatId);
   }

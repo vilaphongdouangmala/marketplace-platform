@@ -17,63 +17,19 @@ export class ChatComponent implements OnInit {
   userId = this.browserStorageService.get('userId');
   messages: DateGroupedMessage | undefined;
 
-  chats: Chat[] = [
-    {
-      id: 1,
-      chatName: null,
-      isGroup: false,
-      latestMessage: 'Hello there!',
-      latestMessageTime: new Date(),
-      chatUsers: [
-        {
-          id: 1,
-          firstName: 'User1',
-          lastName: 'User1',
-          email: 'user@gmail.com',
-        },
-      ],
-    },
-    {
-      id: 2,
-      chatName: 'Chat 2',
-      isGroup: true,
-      latestMessage: 'Group message!',
-      latestMessageTime: new Date(),
-      chatUsers: [
-        {
-          id: 2,
-          firstName: 'User2',
-          lastName: 'User2',
-          email: 'user@gmail.com',
-        },
-        {
-          id: 3,
-          firstName: 'User3',
-          lastName: 'User3',
-          email: 'user@gmail.com',
-        },
-      ],
-    },
-    {
-      id: 3,
-      chatName: null,
-      isGroup: false,
-      latestMessage: 'How are you?',
-      latestMessageTime: new Date(),
-      chatUsers: [
-        {
-          id: 4,
-          firstName: 'User4',
-          lastName: 'User4',
-          email: 'user@gmail.com',
-        },
-      ],
-    },
-    // ... Repeat this pattern for the remaining entries
-  ];
+  chats: Chat[] = [];
 
   ngOnInit(): void {
     this.chatService.selectedChat.next(this.chats[0]);
+    this.chatService.getUserChats().subscribe({
+      next: (chats) => {
+        this.chats = chats;
+        console.log(this.chats);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 
   selectChat(selectedChat: Chat): void {
@@ -87,5 +43,15 @@ export class ChatComponent implements OnInit {
         console.error(err);
       },
     });
+  }
+
+  getPrivateMessageChatName(chat: Chat): string {
+    const chatPartner = chat.chatUsers.find(
+      (chatUser) => chatUser.user.id !== Number(this.userId)
+    )?.user;
+    console.log(chatPartner);
+    return chatPartner
+      ? `${chatPartner.firstName} ${chatPartner.lastName}`
+      : '';
   }
 }

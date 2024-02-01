@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+
 export interface Chat {
   id: number;
   chatName?: string | null;
@@ -16,9 +18,7 @@ export interface ChatDetails {
 
 export interface ChatUser {
   id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
+  user: User;
 }
 
 export interface DateGroupedMessage {
