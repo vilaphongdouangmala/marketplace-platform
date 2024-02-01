@@ -29,7 +29,6 @@ export class ChatService {
   async getChatMessages(chatId: number) {
     const messageQuery = await this.messageRepository.find({
       where: { chatId },
-      order: { createdAt: 'DESC' },
     });
 
     // group queried messages by date
@@ -43,6 +42,13 @@ export class ChatService {
       }
       return acc;
     }, []);
+
+    // sort groupedMessages by date in ascending order
+    groupedMessages.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA.getTime() - dateB.getTime();
+    });
 
     return groupedMessages;
   }
