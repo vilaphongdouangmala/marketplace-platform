@@ -27,6 +27,7 @@ export class ChatService {
         'user.email',
         'user.userType',
       ])
+      .orderBy('chat.latestMessageAt', 'DESC')
       .getMany();
 
     return userChats;

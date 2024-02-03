@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
 import { BrowserStorageService } from '../../../services/brower-storage.service';
 import { SharedModule } from '../../shared/shared.module';
-import { getTimeFromDateTimeString } from '../../shared/utils/datetime.utils';
+import { getDynamicTimeDifference, getTimeFromDateTimeString } from '../../shared/utils/datetime.utils';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-chat',
@@ -56,7 +57,7 @@ export class ChatComponent implements OnInit {
   }
 
   getPrivateMessageChatName(chat: Chat): string {
-    const chatPartner = chat.chatUsers.find(
+    const chatPartner: User | undefined = chat.chatUsers.find(
       (chatUser) => chatUser.user.id !== this.userId
     )?.user;
     return chatPartner
@@ -66,5 +67,9 @@ export class ChatComponent implements OnInit {
 
   formatTime(dateTime: string): string {
     return getTimeFromDateTimeString(dateTime);
+  }
+
+  getDynamicTimeDifference(dateTime: string): string {
+    return getDynamicTimeDifference(dateTime);
   }
 }

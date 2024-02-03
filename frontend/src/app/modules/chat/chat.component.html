@@ -20,7 +20,7 @@
             {{ chat.isGroup ? chat.chatName : getPrivateMessageChatName(chat) }}</div>
           <div class="flex items-center justify-start">
             <div class="text-sm pr-2">{{ chat.latestMessage }}</div>
-            <div class="text-sm">10m</div>
+            <div class="text-sm">{{ getDynamicTimeDifference(chat.latestMessageAt) }}</div>
           </div>
         </div>
       </div>
