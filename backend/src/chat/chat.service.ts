@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Chat, Message } from './entities/chat.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateMessageDto } from './dto/create-message.dto';
 
 @Injectable()
 export class ChatService {
@@ -58,5 +59,16 @@ export class ChatService {
     });
 
     return groupedMessages;
+  }
+
+  async createChatMessage(createMessageDto: CreateMessageDto, userId: number) {
+    const { chatId, content } = createMessageDto;
+    const newMessage = this.messageRepository.create({
+      chatId,
+      userId,
+      content,
+    });
+    await this.messageRepository.save(newMessage);
+    return newMessage;
   }
 }

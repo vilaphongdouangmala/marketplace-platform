@@ -11,6 +11,7 @@ import {
 import { ChatService } from './chat.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
+import { CreateMessageDto } from './dto/create-message.dto';
 
 @Controller('chat')
 export class ChatController {
@@ -25,5 +26,14 @@ export class ChatController {
   @Get('messages/:id')
   async getChatMessages(@Param('id') id: string) {
     return await this.chatService.getChatMessages(+id);
+  }
+
+  @Post('messages')
+  async createChatMessage(
+    @Req() req: any,
+    @Body() createMessageDto: CreateMessageDto,
+  ) {
+    const userId = req.user.userId;
+    return await this.chatService.createChatMessage(createMessageDto, +userId);
   }
 }
